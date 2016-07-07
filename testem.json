@@ -1,0 +1,13 @@
+{
+  "framework": "jasmine",
+  "src_files": [
+    "src/collector.js",
+    "test/spec/collector_spec.js"
+  ],
+  "serve_files": [
+    "test/bundle.js"
+  ],
+  "before_tests" : "./node_modules/webpack/bin/webpack.js --config=test.webpack.config.js",
+  "after_tests" : "rm test/bundle.js",
+  "launch_in_dev" : ["Chrome"]
+}
