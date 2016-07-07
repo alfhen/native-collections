@@ -1,8 +1,8 @@
 {
   "name": "native-collections",
   "version": "0.1.0",
-  "description": "A collection library inspired by Laravels collections",
-  "main": "/dist/collector.common.js",
+  "description": "A Collection library inspired by Laravel's Collections, that adds helpful methods to the native JavaScript Array object ",
+  "main": "/dist/native-collections.common.js",
   "scripts": {
     "test": "./node_modules/testem/testem.js ci",
     "build-test": "./node_modules/webpack/bin/webpack.js --config=test.webpack.config.js",
