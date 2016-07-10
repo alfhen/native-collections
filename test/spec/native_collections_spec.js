@@ -56,9 +56,48 @@ describe('Collector', function(){
             .toBe(this.fruits.length);
     });
 
+    it('should find the first fruit', function(){
+        expect(this.fruits.first().name)
+            .toBe('apple');
+
+        expect(this.fruits.first(item => item.delicious).name)
+            .toBe('apple');
+
+        expect(this.fruits.first('delicious').name)
+            .toBe('apple');
+    });
+
+    it('should find the difference between fruits', function(){
+
+        var fruitsWithStrawberry = this.fruits.splice();
+        fruitsWithStrawberry.push({
+            id: 5,
+            name: 'strawberry',
+            delicious: true,
+            price: 1
+        });
+
+        expect(fruitsWithStrawberry.diff(this.fruits).pluck('name'))
+            .toContain('strawberry');
+    });
+
     it('should pluck all fruit names', function(){
         expect(this.fruits.pluck('name'))
             .toContain('apple');
+    });
+
+    it('should return fruits with props except given values', function(){
+        expect(this.fruits.except('price').first())
+            .toEqual({
+                id: 1,
+                name: 'apple',
+                delicious: true
+            });
+
+        expect(this.fruits.except(['price', 'id', 'delicious']).first())
+            .toEqual({
+                name: 'apple'
+            });
     });
 
     it('should filter delicious fruits', function(){
@@ -89,18 +128,6 @@ describe('Collector', function(){
         expect(this.fruits.pluck('price').sum())
             .toBe(6.5);
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
 

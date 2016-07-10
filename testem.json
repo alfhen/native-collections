@@ -1,8 +1,8 @@
 {
   "framework": "jasmine",
   "src_files": [
-    "src/collector.js",
-    "test/spec/collector_spec.js"
+    "src/native-collections.js",
+    "test/spec/native_collections_spec.js"
   ],
   "serve_files": [
     "test/bundle.js"

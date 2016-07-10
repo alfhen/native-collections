@@ -26,17 +26,62 @@ Array.prototype.collapse = function () {
     }, []);
 };
 
-// Return the count of items
-Array.prototype.count = function (callbackOrString) {
+// Return the total count of items
+Array.prototype.count = function () {
     return this.length;
 };
 
-// Return the count of items
-Array.prototype.first = function () {
-    return this[0];
+// Return the difference between items
+Array.prototype.diff = function (compare) {
+    return this.reduce((diff, item, index) => {
+        if(JSON.stringify(item) !== JSON.stringify(compare[index])) {
+            diff.push(item);
+        }
+        return diff;
+    }, []);
 };
 
-// Return the count of items
+// Return the items with all properties except the given keys
+Array.prototype.except = function (except) {
+    if(typeof except === 'string'){
+        except = [except];
+    }
+    return this.map(item => {
+       return except.reduce((modifiedItem, propToRemove) => {
+           delete modifiedItem[propToRemove];
+           return modifiedItem;
+       }, item);
+    });
+};
+
+// Return the first item in the collection returning true in statement
+Array.prototype.first = function (callbackOrString) {
+    var match = null;
+    if (typeof callbackOrString === 'function') {
+        this.some((item) => {
+            if (callbackOrString(item) === true) {
+                match = item;
+                return true;
+            }
+            return false;
+        });
+    }
+    if (typeof callbackOrString === 'string') {
+        this.some((item) => {
+            if (item[callbackOrString] === true) {
+                match = item;
+                return true;
+            }
+            return false;
+        });
+    }
+    if (typeof callbackOrString === 'undefined') {
+        match = this[0];
+    }
+    return match;
+};
+
+// Return the last item in the collection
 Array.prototype.last = function () {
     return this[this.length-1];
 };
